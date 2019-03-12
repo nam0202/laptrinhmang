@@ -1,0 +1,57 @@
+package com.example.laptrinhmang.Model;
+
+import com.example.laptrinhmang.Data.Product;
+
+import java.util.ArrayList;
+
+public class ProductData {
+    private ArrayList<Product> listProduct = new ArrayList<>();
+    public ProductData(){
+        listProduct.add(
+                new Product(17.000f,
+                        "Mì Vị Hương",
+                        "Bột mì, tinh bột biến tính, tinh bột khoai mì, bột thịt bò",
+                        "Cho mì và các gói gia vị vào tô, đổ nước sôi vừa đủ trong 3 phút",
+                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"));
+        listProduct.add(
+                new Product(50.000f,
+                        "TH true MILK",
+                        "Bột mì, tinh bột biến tính, tinh bột khoai mì, bột thịt bò",
+                        "Cho mì và các gói gia vị vào tô, đổ nước sôi vừa đủ trong 3 phút",
+                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"));
+        listProduct.add(
+                new Product(50.000f,
+                        "TH true MILK hương dâu",
+                        "sua tươi tiệt trùng TH True Milk hương dâu thơm ngon, dễ uống, được làm hoàn toàn từ nguồn sua tươi sạch tại trang trại bò sua của TH. Trong sua chứa nhiều dưỡng chất thiết yếu tốt cho sức khoẻ như Vitamin A, D, B1, B2, Canxi, kẽm... Sản phẩm sử dụng công nghệ tiệt trùng UTH, đảm bảo loại bỏ các khuẩn có hại trong sua, giữ được gần như trọn vẹn dưỡng chất và hương vị đặc trưng của sua",
+                        null,
+                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"));
+        listProduct.add(
+                new Product(18.000f,
+                        "Mì Jongga",
+                        "Bột mì, dầu cọ, tinh bột khoai tây, bột kim chi, bột hành",
+                        "Cho 350ml nước sôi vào mì, gia vị trong vòng 3 phút. Bỏ gói kim chi vào ly và trộn đều",
+                        "image/my/kim-chi-ramen-jongga-to-140g-2-org.jpg"));
+        listProduct.add(
+                new Product(17.000f,
+                        "Mì xào khô Nongshim",
+                        "Bột mì, tinh bột khoai tây, gia vị cá, tôm, chiết xuất trà xanh, gia vị hải sản",
+                        "Cho 600ml nước sôi vào mì trong vòng 5 phút. Đổ nước, cho các gói gia vị vào trộn đều",
+                        "image/my/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG"));
+    }
+
+    public boolean addProduct(Product p){
+        if(p==null) return false;
+        try {
+            listProduct.add(p);
+        }catch (Exception e){
+            return false;
+        }finally {
+            return true;
+        }
+    }
+
+    public ArrayList<Product> getAllProducts(){
+        return this.listProduct;
+    }
+
+}
