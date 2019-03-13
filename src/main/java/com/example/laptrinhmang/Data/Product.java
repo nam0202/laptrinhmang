@@ -6,6 +6,15 @@ public class Product {
     private String properties;
     private String used;
     private String img;
+    private int numbers;
+
+    public int getNumbers() {
+        return numbers;
+    }
+
+    public void setNumbers(int numbers) {
+        this.numbers = numbers;
+    }
 
     public String getImg() {
         return img;
@@ -18,12 +27,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(Float price, String name, String properties, String used, String img) {
+    public Product(Float price, String name, String properties, String used, String img,int numbers) {
         this.price = price;
         this.name = name;
         this.properties = properties;
         this.used = used;
         this.img = img;
+        this.numbers = numbers;
     }
 
     public Float getPrice() {

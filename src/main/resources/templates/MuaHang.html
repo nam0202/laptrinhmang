@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,76 +13,57 @@
 <body>
 <!-- NavBar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="#">Navbar</a>
+    <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="/">Menu</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="#">Home <span
                         class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="navbar-brand dropdown-toggle" style="color: #6ddd80; text-decoration: none;" href="#"
-                   id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" style="color: #6ddd80; text-decoration: none;" href="#">Action</a>
-                    <a class="dropdown-item" style="color: #6ddd80; text-decoration: none;" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" style="color: #6ddd80; text-decoration: none;" href="#">Something else
-                        here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand disabled" style="color: #6ddd80; text-decoration: none;" href="#" tabindex="-1"
-                   aria-disabled="true">Disabled</a>
-            </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0 ">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 navbar-brand" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 <br>
 <hr>
-<div class="container">
-    <form action="/muahang" method="post">
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputEmail4">Họ tên: </label>
-                <input type="text" name="customerName" class="form-control" id="inputEmail4" placeholder="Nguyễn Văn A">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputPassword4">Số điện thoại: </label>
-                <input name="phone" type="text" class="form-control" id="inputPassword4">
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <img th:src="${'/'+product.img}" alt="Ảnh mặt hàng" style="width: 100%;height: 100%">
         </div>
-        <div class="form-group">
-            <label for="inputAddress">Address</label>
-            <input name="address" type="text" class="form-control" id="inputAddress" placeholder="Học viện kỹ thuật mật mã ">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputCity">Số lượng </label>
-                <input name="" type="number" class="form-control" id="inputCity">
-            </div>
-            <!--<div class="form-group col-md-2">-->
-                <!--<label for="inputZip">Thành tiền</label>-->
-                <!--<input type="number" class="form-control" id="inputZip">-->
-            <!--</div>-->
-        </div>
+        <div class="col-8">
+            <form action="/muahang" method="post">
+                <legend th:text="${product.name}"></legend>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Họ tên: </label>
+                        <input type="text" name="customerName" class="form-control" id="inputEmail4" placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Số điện thoại: </label>
+                        <input name="phone" type="text" class="form-control" id="inputPassword4">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <input name="address" type="text" class="form-control" id="inputAddress"
+                           placeholder="Học viện kỹ thuật mật mã ">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity" th:text="${'Số lượng: ( Hiện có: '+product.numbers+')'}"> </label>
+                        <input name="" type="number" class="form-control" id="inputCity">
+                    </div>
+                </div>
 
-        <button onclick="muahang()" type="submit" class="btn btn-success">Mua hàng</button>
-    </form>
+                <button onclick="muahang()" type="submit" class="btn btn-success">Mua hàng</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         function muahang() {
             alert("Mua hàng thành công. Chúng tôi sẽ liên hệ sớm với bạn")

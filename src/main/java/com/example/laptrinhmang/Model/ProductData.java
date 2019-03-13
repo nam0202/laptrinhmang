@@ -12,31 +12,36 @@ public class ProductData {
                         "Mì Vị Hương",
                         "Bột mì, tinh bột biến tính, tinh bột khoai mì, bột thịt bò",
                         "Cho mì và các gói gia vị vào tô, đổ nước sôi vừa đủ trong 3 phút",
-                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"));
+                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"
+                        ,10));
         listProduct.add(
                 new Product(50.000f,
                         "TH true MILK",
-                        "Bột mì, tinh bột biến tính, tinh bột khoai mì, bột thịt bò",
-                        "Cho mì và các gói gia vị vào tô, đổ nước sôi vừa đủ trong 3 phút",
-                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg"));
+                        "Lốc 4 hộp sữa tươi tiệt trùng TH true MILK ít đường 180ml",
+                        null,
+                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg"
+                        ,20));
         listProduct.add(
                 new Product(50.000f,
                         "TH true MILK hương dâu",
                         "sua tươi tiệt trùng TH True Milk hương dâu thơm ngon, dễ uống, được làm hoàn toàn từ nguồn sua tươi sạch tại trang trại bò sua của TH. Trong sua chứa nhiều dưỡng chất thiết yếu tốt cho sức khoẻ như Vitamin A, D, B1, B2, Canxi, kẽm... Sản phẩm sử dụng công nghệ tiệt trùng UTH, đảm bảo loại bỏ các khuẩn có hại trong sua, giữ được gần như trọn vẹn dưỡng chất và hương vị đặc trưng của sua",
                         null,
-                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg"));
+                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg"
+                        ,30));
         listProduct.add(
                 new Product(18.000f,
                         "Mì Jongga",
                         "Bột mì, dầu cọ, tinh bột khoai tây, bột kim chi, bột hành",
                         "Cho 350ml nước sôi vào mì, gia vị trong vòng 3 phút. Bỏ gói kim chi vào ly và trộn đều",
-                        "image/my/kim-chi-ramen-jongga-to-140g-2-org.jpg"));
+                        "image/my/kim-chi-ramen-jongga-to-140g-2-org.jpg"
+                        ,40));
         listProduct.add(
                 new Product(17.000f,
                         "Mì xào khô Nongshim",
                         "Bột mì, tinh bột khoai tây, gia vị cá, tôm, chiết xuất trà xanh, gia vị hải sản",
                         "Cho 600ml nước sôi vào mì trong vòng 5 phút. Đổ nước, cho các gói gia vị vào trộn đều",
-                        "image/my/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG"));
+                        "image/my/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG"
+                        ,50));
     }
 
     public boolean addProduct(Product p){
@@ -52,6 +57,14 @@ public class ProductData {
 
     public ArrayList<Product> getAllProducts(){
         return this.listProduct;
+    }
+    public Product getProductByIndex(int index){
+        try {
+            return listProduct.get(index);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
 }

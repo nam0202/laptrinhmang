@@ -2,6 +2,7 @@ package com.example.laptrinhmang.Controller;
 
 import com.example.laptrinhmang.Controller.VMData.Login;
 import com.example.laptrinhmang.Data.Bill;
+import com.example.laptrinhmang.Data.Product;
 import com.example.laptrinhmang.Data.User;
 import com.example.laptrinhmang.Model.BillData;
 import com.example.laptrinhmang.Model.ProductData;
@@ -21,15 +22,20 @@ public class HomeController {
     public String loginAdmin(){
         return "Login.html";
     }
-    @GetMapping("/muahang/{productName}")
-    public String muHang(@PathVariable("productName") String productName){
-        System.out.println(productName);
-        return "MuaHang.html";
+    @GetMapping("/muahang/{indexProduct}")
+    public String muHang(@PathVariable("indexProduct") int indexProduct,Model model){
+        Product product = productData.getProductByIndex(indexProduct);
+        if(product == null){
+            return "redirect:/";
+        }else {
+            model.addAttribute("product",product);
+            System.out.println(product);
+            return "MuaHang.html";
+        }
     }
-    @PostMapping("/muahang/{productName}")
-    public String muHang(Bill bill,@PathVariable("productName") String productName){
-        System.out.println(productName);
-        System.out.println(bill.toString());
+    @PostMapping("/muahang/{indexProduct}")
+    public String muHang(Bill bill,@PathVariable("indexProduct") Integer indexProduct){
+//        System.out.println(bill.toString());
         return "MuaHang.html";
     }
     @PostMapping("/admin")
@@ -40,7 +46,9 @@ public class HomeController {
         return "Login.html";
     }
     @GetMapping("/admin/home")
-    public String homeAdmin(){
+    public String homeAdmin(Model model){
+        model.addAttribute("listProduct",productData.getAllProducts());
+
         return "Menu_admin.html";
     }
     @GetMapping("/")
