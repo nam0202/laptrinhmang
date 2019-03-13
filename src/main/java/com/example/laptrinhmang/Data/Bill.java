@@ -7,8 +7,25 @@ public class Bill {
     private String address;
     private Product product;
     private Float totalPrice;
-
+    private int number;
     public Bill() {
+        product = new Product();
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public Bill(String customerName, String phone, String address, Product product, Float totalPrice) {

@@ -35,27 +35,27 @@
             <img th:src="${'/'+product.img}" alt="Ảnh mặt hàng" style="width: 100%;height: 100%">
         </div>
         <div class="col-8">
-            <form th:action="${'/muahang'+product.id}" method="post">
+            <form th:action="${'/muahang/'+product.id}" th:object="${bill}" method="post">
                 <legend th:text="${product.name}"></legend>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail4">Họ tên: </label>
-                        <input type="text" name="customerName" class="form-control" id="inputEmail4" placeholder="Nguyễn Văn A">
+                        <input type="text"  th:field="${bill.customerName}" class="form-control" id="inputEmail4" placeholder="Nguyễn Văn A">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">Số điện thoại: </label>
-                        <input name="phone" type="text" class="form-control" id="inputPassword4">
+                        <input th:field="${bill.phone}" type="text" class="form-control" id="inputPassword4">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputAddress">Address</label>
-                    <input name="address" type="text" class="form-control" id="inputAddress"
+                    <input th:field="${bill.address}" type="text" class="form-control" id="inputAddress"
                            placeholder="Học viện kỹ thuật mật mã ">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputCity" th:text="${'Số lượng: ( Hiện có: '+product.numbers+')'}"> </label>
-                        <input name="" type="number" class="form-control" id="inputCity">
+                        <input th:field="${bill.product.numbers}" type="number" class="form-control" id="inputCity">
                     </div>
                 </div>
 

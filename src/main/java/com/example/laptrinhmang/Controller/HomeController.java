@@ -10,6 +10,7 @@ import com.example.laptrinhmang.Model.UserData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,15 +30,20 @@ public class HomeController {
             return "redirect:/";
         }else {
             model.addAttribute("product",product);
+            Bill bill = new Bill();
+            bill.setProducts(product);
+            model.addAttribute("bill", bill);
             System.out.println(product);
             return "MuaHang.html";
         }
     }
     @PostMapping("/muahang/{indexProduct}")
-    public String muHang(Bill bill,@PathVariable("indexProduct") Integer indexProduct){
-//        System.out.println(bill.toString());
-        return "MuaHang.html";
+    public String muaHang(@ModelAttribute("bill") Bill bill, @PathVariable("indexProduct") Integer indexProduct){
+        boolean result = this.billData.addBill(bill);
+
+        return "redirect:/";
     }
+
     @PostMapping("/admin")
     public String loginAdmin(User user){
         if(userData.LoginUser(user)){
