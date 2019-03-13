@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,26 +63,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>001</td>
-                    <td>Bánh my</td>
-                    <td>100</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>002</td>
-                    <td>my tôm</td>
-                    <td>102</td>
-                    <td>10</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>003</td>
-                    <td>sua tươi </td>
-                    <td>200</td>
-                    <td>100</td>
+                  <tr th:each="product,index : ${listProduct}">
+                    <th scope="row" th:text="${index.index+1}"></th>
+                    <td th:text="${index.index}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price+'00 VND'}"></td>
+                    <td th:text="${product.numbers}"></td>
                   </tr>
                 </tbody>
               </table>
