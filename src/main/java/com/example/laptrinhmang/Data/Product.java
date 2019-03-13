@@ -7,6 +7,15 @@ public class Product {
     private String used;
     private String img;
     private int numbers;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getNumbers() {
         return numbers;
@@ -27,13 +36,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(Float price, String name, String properties, String used, String img,int numbers) {
+    public Product(Float price, String name, String properties, String used, String img,int numbers,int id) {
         this.price = price;
         this.name = name;
         this.properties = properties;
         this.used = used;
         this.img = img;
         this.numbers = numbers;
+        this.id = id;
     }
 
     public Float getPrice() {
