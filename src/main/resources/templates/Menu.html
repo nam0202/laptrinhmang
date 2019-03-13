@@ -81,90 +81,19 @@
                 <h3 class="section-subheading text-muted">Đảm bảo chất lượng mọi nhà</h3>
             </div>
         </div>
-        <div class="row" th:each="product : ${listProduct}">
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Mì Vị Hương</h4>
-                    <p style="color:red;">Giá : 17.000 đ</a></p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 portfolio-item" th:each="product : ${listProduct}">
                 <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
                     <div class="portfolio-hover">
                         <div class="portfolio-hover-content">
                             <i class="fas fa-plus fa-3x"></i>
                         </div>
                     </div>
-                    <img class="img-fluid" src="image/my/kim-chi-ramen-jongga-to-140g-2-org.jpg" alt="">
+                    <img class="img-fluid" th:src="${product.img}" alt="">
                 </a>
                 <div class="portfolio-caption">
-                    <h4>Mì Jongga</h4>
-                    <p style="color:red;">Giá : 18.000 đ</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/my/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Mì xào khô Nongshim</h4>
-                    <p style="color:red;">Giá : 17.000 đ</p>
-                </div>
-            </div>
-            <!--sua-->
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg" alt="" style="height:245px;">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>TH true MILK hương dâu</h4>
-                    <p style="color:red;">Giá : 50.000 đ</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>TH true MILK</h4>
-                    <p style="color:red;">Giá : 50.000 đ</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/sua/sttt-th-milk-soco-180ml-thung-2-org.jpg" alt="" style="height:245px;">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>TH true MILK vị socola</h4>
-                    <p style="color:red;">Giá : 350.000 đ</p>
+                    <h4 th:text="${product.name}"></h4>
+                    <p style="color:red;" th:text="${product.price}">Gia Tien:  VND</a></p>
                 </div>
             </div>
         </div>

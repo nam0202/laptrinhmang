@@ -18,13 +18,13 @@ public class ProductData {
                         "TH true MILK",
                         "Bột mì, tinh bột biến tính, tinh bột khoai mì, bột thịt bò",
                         "Cho mì và các gói gia vị vào tô, đổ nước sôi vừa đủ trong 3 phút",
-                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"));
+                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg"));
         listProduct.add(
                 new Product(50.000f,
                         "TH true MILK hương dâu",
                         "sua tươi tiệt trùng TH True Milk hương dâu thơm ngon, dễ uống, được làm hoàn toàn từ nguồn sua tươi sạch tại trang trại bò sua của TH. Trong sua chứa nhiều dưỡng chất thiết yếu tốt cho sức khoẻ như Vitamin A, D, B1, B2, Canxi, kẽm... Sản phẩm sử dụng công nghệ tiệt trùng UTH, đảm bảo loại bỏ các khuẩn có hại trong sua, giữ được gần như trọn vẹn dưỡng chất và hương vị đặc trưng của sua",
                         null,
-                        "image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg"));
+                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg"));
         listProduct.add(
                 new Product(18.000f,
                         "Mì Jongga",

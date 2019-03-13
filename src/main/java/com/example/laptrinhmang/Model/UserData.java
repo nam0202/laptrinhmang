@@ -1,9 +1,6 @@
 package com.example.laptrinhmang.Model;
 
 import com.example.laptrinhmang.Data.User;
-import org.springframework.cache.support.NullValue;
-
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 
 public class UserData {
