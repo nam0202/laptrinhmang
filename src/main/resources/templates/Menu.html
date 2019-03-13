@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,89 +82,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Mì Vị Hương</h4>
-                    <p style="color:red;">Giá : 17.000 đ</a></p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
+            <div class="col-md-4 col-sm-6 portfolio-item" th:each="product : ${listProduct}">
                 <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
                     <div class="portfolio-hover">
                         <div class="portfolio-hover-content">
                             <i class="fas fa-plus fa-3x"></i>
                         </div>
                     </div>
-                    <img class="img-fluid" src="image/my/kim-chi-ramen-jongga-to-140g-2-org.jpg" alt="">
+                    <img class="img-fluid" th:src="${product.img}" alt="">
                 </a>
                 <div class="portfolio-caption">
-                    <h4>Mì Jongga</h4>
-                    <p style="color:red;">Giá : 18.000 đ</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/my/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>Mì xào khô Nongshim</h4>
-                    <p style="color:red;">Giá : 17.000 đ</p>
-                </div>
-            </div>
-            <!--sữa-->
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg" alt="" style="height:245px;">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>TH true MILK hương dâu</h4>
-                    <p style="color:red;">Giá : 50.000 đ</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg" alt="">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>TH true MILK</h4>
-                    <p style="color:red;">Giá : 50.000 đ</p>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 portfolio-item">
-                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-                    <div class="portfolio-hover">
-                        <div class="portfolio-hover-content">
-                            <i class="fas fa-plus fa-3x"></i>
-                        </div>
-                    </div>
-                    <img class="img-fluid" src="image/sua/sttt-th-milk-soco-180ml-thung-2-org.jpg" alt="" style="height:245px;">
-                </a>
-                <div class="portfolio-caption">
-                    <h4>TH true MILK vị socola</h4>
-                    <p style="color:red;">Giá : 350.000 đ</p>
+                    <h4 th:text="${product.name}"></h4>
+                    <p style="color:red;" th:text="${product.price}">Gia Tien:  VND</a></p>
                 </div>
             </div>
         </div>
@@ -187,10 +116,10 @@
                             <!-- Project Details Go Here -->
                             <h2 class="text-uppercase" style="color:black;">Mì Vị Hương</h2>
                             <p class="item-intro text-muted">Vị bò hầm sốt vang tô 80g</p>
-                            <img class="img-fluid d-block mx-auto" src="static/image/mỳ/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg" alt="">
+                            <img class="img-fluid d-block mx-auto" src="image/my/mi-to-vi-huong-bo-ham-sot-vang-80g-2-org.jpg" alt="">
                             <p style="color:black;">Thành phần:   Bột mì, tinh bột biến tính, tinh bột khoai mì, bột thịt bò,...</p>
                             <p style="color:black;">Cách dùng:  Cho mì và các gói gia vị vào tô, đổ nước sôi vừa đủ trong 3 phút.</p>
-                            <a href="form_muahang.html">
+                            <a href="/muahang">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-baby-carriage"></i>
                                     Mua hàng </button>
@@ -217,10 +146,10 @@
                             <!-- Project Details Go Here -->
                             <h2 class="text-uppercase">Mì Jongga</h2>
                             <p class="item-intro text-muted">Hương vị kim chi Ramen tô 140g</p>
-                            <img class="img-fluid d-block mx-auto" src="static/image/mỳ/kim-chi-ramen-jongga-to-140g-2-org.jpg" alt="">
+                            <img class="img-fluid d-block mx-auto" src="image/my/kim-chi-ramen-jongga-to-140g-2-org.jpg" alt="">
                             <p>Thành phần:   Bột mì, dầu cọ, tinh bột khoai tây, bột kim chi, bột hành,...</p>
                             <p>Cách dùng:    Cho 350ml nước sôi vào mì, gia vị trong vòng 3 phút. Bỏ gói kim chi vào ly và trộn đều.</p>
-                            <a href="form_muahang.html">
+                            <a href="/muahang">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-baby-carriage"></i>
                                     Mua hàng </button>
@@ -247,10 +176,10 @@
                             <!-- Project Details Go Here -->
                             <h2 class="text-uppercase">Mì xào khô Nongshim</h2>
                             <p class="item-intro text-muted">Hương vị hải sản cay gói 137kg</p>
-                            <img class="img-fluid d-block mx-auto" src="static/image/mỳ/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG" alt="">
+                            <img class="img-fluid d-block mx-auto" src="image/my/mi-xao-nongshim-neoguri-hai-san-cay-goi-137g-201812031110563647.JPG" alt="">
                             <p>Thành phần:   Bột mì, tinh bột khoai tây, gia vị cá, tôm, chiết xuất trà xanh, gia vị hải sản,...</p>
                             <p>Cách dùng:  Cho 600ml nước sôi vào mì trong vòng 5 phút. Đổ nước, cho các gói gia vị vào trộn đều.</p>
-                            <a href="form_muahang.html">
+                            <a href="/muahang">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-baby-carriage"></i>
                                     Mua hàng </button>
@@ -277,12 +206,12 @@
                         <div class="modal-body">
                             <!-- Project Details Go Here -->
                             <h2 class="text-uppercase">TH true MILK hương dâu</h2>
-                            <p class="item-intro text-muted">Lốc 4 hộp sữa tươi tiệt trùng TH true MILK hương dâu 180ml</p>
-                            <img class="img-fluid d-block mx-auto" src="static/image/sữa/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg" alt="">
-                            <p> Sữa tươi tiệt trùng TH True Milk hương dâu thơm ngon, dễ uống, được làm hoàn toàn từ nguồn sữa tươi sạch tại trang trại bò sữa của TH. Trong sữa chứa nhiều dưỡng chất thiết yếu tốt cho sức khoẻ như Vitamin A, D, B1, B2, Canxi, kẽm...
+                            <p class="item-intro text-muted">Lốc 4 hộp sua tươi tiệt trùng TH true MILK hương dâu 180ml</p>
+                            <img class="img-fluid d-block mx-auto" src="image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg" alt="">
+                            <p> sua tươi tiệt trùng TH True Milk hương dâu thơm ngon, dễ uống, được làm hoàn toàn từ nguồn sua tươi sạch tại trang trại bò sua của TH. Trong sua chứa nhiều dưỡng chất thiết yếu tốt cho sức khoẻ như Vitamin A, D, B1, B2, Canxi, kẽm...
 
-                                Sản phẩm sử dụng công nghệ tiệt trùng UTH, đảm bảo loại bỏ các khuẩn có hại trong sữa, giữ được gần như trọn vẹn dưỡng chất và hương vị đặc trưng của sữa.</p>
-                            <a href="form_muahang.html">
+                                Sản phẩm sử dụng công nghệ tiệt trùng UTH, đảm bảo loại bỏ các khuẩn có hại trong sua, giữ được gần như trọn vẹn dưỡng chất và hương vị đặc trưng của sua.</p>
+                            <a href="/muahang/locsuath">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fas fa-baby-carriage"></i>
                                     Mua hàng </button>
