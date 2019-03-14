@@ -1,5 +1,6 @@
 package com.example.laptrinhmang.Controller;
 
+import com.example.laptrinhmang.Controller.VMData.ChatMessage;
 import com.example.laptrinhmang.Controller.VMData.Login;
 import com.example.laptrinhmang.Data.Bill;
 import com.example.laptrinhmang.Data.Product;
@@ -7,9 +8,15 @@ import com.example.laptrinhmang.Data.User;
 import com.example.laptrinhmang.Model.BillData;
 import com.example.laptrinhmang.Model.ProductData;
 import com.example.laptrinhmang.Model.UserData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,55 +34,116 @@ public class HomeController {
     private BillData billData = new BillData();
     private ProductData productData = new ProductData();
     private UserData userData = new UserData();
+
+
     @GetMapping("/admin")
-    public String loginAdmin(){
+    public String loginAdmin() {
         return "Login.html";
     }
+
     @GetMapping("/muahang/{indexProduct}")
-    public String muHang(@PathVariable("indexProduct") int indexProduct,Model model){
+    public String muHang(@PathVariable("indexProduct") int indexProduct, Model model) {
         Product product = productData.getProductByIndex(indexProduct);
-        if(product == null){
+        if (product == null) {
             return "redirect:/";
-        }else {
-            model.addAttribute("product",product);
-            System.out.println(product);
+        } else {
+            model.addAttribute("product", product);
+            Bill bill = new Bill();
+            bill.setProducts(product);
+            System.out.println(bill);
+            model.addAttribute("bill", bill);
             return "MuaHang.html";
         }
     }
     @PostMapping("/muahang/{indexProduct}")
-    public String muHang(Bill bill,@PathVariable("indexProduct") Integer indexProduct){
-//        System.out.println(bill.toString());
-        return "MuaHang.html";
+    public String muaHang(
+            @ModelAttribute("bill") Bill bill,
+            @PathVariable("indexProduct") int indexProduct
+    ) {
+        Product product = productData.getProductByIndex(indexProduct);
+        product.setNumbers(bill.getNumber());
+        bill.setProducts(product);
+        System.out.println(bill);
+        boolean result = this.billData.addBill(bill);
+        return "redirect:/";
     }
     @PostMapping("/admin")
-    public String loginAdmin(User user){
-        if(userData.LoginUser(user)){
+    public String loginAdmin(User user) {
+        if (userData.LoginUser(user)) {
             return "redirect:/admin/home";
         }
         return "Login.html";
     }
+
     @GetMapping("/admin/home")
-    public String homeAdmin(Model model){
-        model.addAttribute("listProduct",productData.getAllProducts());
+    public String homeAdmin(Model model) {
+        model.addAttribute("listProduct", productData.getAllProducts());
 
         return "Menu_admin.html";
     }
-    @GetMapping("/")
-    public String home(Model model){
-        model.addAttribute("listProduct",productData.getAllProducts());
 
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("listProduct", productData.getAllProducts());
         return "Menu.html";
     }
 
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/publicChatRoom")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        return chatMessage;
+    }
+
+
+    @GetMapping("/admin/hoadon")
+    public String hoaDon(Model mode) {
+        mode.addAttribute("listBill", billData.getListBill());
+        return "ListHoaDon";
+    }
+
+    @GetMapping("/admin/hoadon/{id}")
+    public String hoaDon(@PathVariable("id") int id, Model model) {
+        Bill bill = billData.getBillById(id);
+        System.out.println(bill);
+        if (bill == null) {
+            return "redirect:/admin/hoadon";
+        } else {
+            model.addAttribute("bill", bill);
+            return "ChiTietBill";
+        }
+    }
+
+    @MessageMapping("/chat.status")
+    @SendTo("/topic/listener")
+    public ChatMessage sendMStatus(@Payload ChatMessage chatMessage) {
+        System.out.println(chatMessage.getContent());
+        return chatMessage;
+    }
+
+
+    @MessageMapping("/chat.addUser")
+    @SendTo("/topic/publicChatRoom")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        // Add username in web socket session
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
+    }
+    @MessageMapping("/chat.change")
+    @SendTo("/topic/change")
+    public ChatMessage deleteProduct(@Payload ChatMessage chatMessage) {
+        return chatMessage;
+    }
+
     private final Path rootLocation = Paths.get("filestorage");
+
     @GetMapping("/admin/add")
-    public String addPro(Model model){
+    public String addPro(Model model) {
         model.addAttribute("product", new Product());
         return "addPro";
     }
 
     @GetMapping("/admin/save")
-    public String savePro(Model model, HttpServletRequest request, Product product){
+    public String savePro(Model model, HttpServletRequest request, Product product) {
         System.out.println(request.getParameter("img"));
         model.addAttribute("product", new Product());
         product.setName(request.getParameter("name"));
@@ -89,14 +157,14 @@ public class HomeController {
     }
 
     @GetMapping("/admin/delete/{id}")
-    public String deletePro(@PathVariable int id){
+    public String deletePro(@PathVariable int id) {
         System.out.println(id);
         productData.deleteProduct(id);
         return "redirect:/admin/home";
     }
 
     @GetMapping("/admin/edit/{id}")
-    public String editPro(@PathVariable int id, Product product, HttpServletRequest request, Model model){
+    public String editPro(@PathVariable int id, Product product, HttpServletRequest request, Model model) {
         System.out.println(id);
         List<Product> list = productData.getAllProducts();
         model.addAttribute("product", list.get(id));
@@ -105,8 +173,9 @@ public class HomeController {
     }
 
     String urlfile;
+
     @GetMapping("/admin/edit/save")
-    public String saveEditPro( Model model, HttpServletRequest request, Product product){
+    public String saveEditPro(Model model, HttpServletRequest request, Product product) {
 
         product.setName(request.getParameter("name"));
         product.setPrice(Float.parseFloat(request.getParameter("price")));

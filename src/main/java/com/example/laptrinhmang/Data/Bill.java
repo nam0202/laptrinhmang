@@ -7,16 +7,33 @@ public class Bill {
     private String address;
     private Product product;
     private Float totalPrice;
-
+    private int number;
     public Bill() {
     }
 
-    public Bill(String customerName, String phone, String address, Product product, Float totalPrice) {
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public Bill(String customerName, String phone, String address, Product product, Float totalPrice,int number) {
         this.customerName = customerName;
         this.phone = phone;
         this.address = address;
         this.product = product;
         this.totalPrice = totalPrice;
+        this.number = number;
     }
 
     public String getCustomerName() {
@@ -65,8 +82,9 @@ public class Bill {
                 "customerName='" + customerName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", product=" + product +
+                ", product=" + product.toString() +
                 ", totalPrice=" + totalPrice +
+                ", number=" + number +
                 '}';
     }
 }
