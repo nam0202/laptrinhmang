@@ -25,6 +25,10 @@ function onError(error) {
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     if(message.content === 'Mua Hang'){
-        alert('Có người mới đặt hàng hay vào hóa đơn');
+        var result = confirm('Có người mới đặt hàng, Vào xem danh sách hóa đơn?');
+        console.log(result);
+        if(result){
+            location.replace(window.location.origin+'/admin/hoadon');
+        }
     }
 }

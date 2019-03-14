@@ -15,43 +15,22 @@
     <script  src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
-    <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="/admin/home">Trang Chủ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="/admin/hoadon">Hóa Đơn <span
+                        class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="navbar-brand dropdown-toggle" style="color: #6ddd80; text-decoration: none;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-                </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" style="color: #6ddd80; text-decoration: none;" href="#">Action</a>
-                <a class="dropdown-item" style="color: #6ddd80; text-decoration: none;" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" style="color: #6ddd80; text-decoration: none;" href="#">Something else here</a>
-            </div>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand disabled" style="color: #6ddd80; text-decoration: none;" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0 ">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 navbar-brand" type="submit">Search</button>
-            </form>
-      </div>
-    </nav>
-    <!--  -->
+        </ul>
+    </div>
+</nav>
     <h4 class="text-center my-3 size-45px">Danh sách tất cả các mặt hàng</h4>    
     <div class="container">
         <!-- table -->
@@ -63,6 +42,7 @@
                     <th scope="col">Tên mặt hàng</th>
                     <th scope="col">Đơn giá</th>
                     <th scope="col">Số lượng</th>
+                      <th scope="col">Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -72,11 +52,62 @@
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price+'00 VND'}"></td>
                     <td th:text="${product.numbers}"></td>
+                      <td><a class="portfolio-modal btn btn-success" data-toggle="modal"
+                             th:href="${'#'}+${'portfolioModal'}+${index.index+1}">Xem</a>
+                          <a th:href="@{/admin/edit/{id}(id=${index.index})}" class="btn btn-info">Sửa</a>
+                          <a th:href="@{/admin/delete/{id}(id=${index.index})}" class="btn btn-danger">Xóa</a></td>
                   </tr>
                 </tbody>
               </table>
     </div>
+        <a class="btn btn-primary" th:href="@{/admin/add}">Thêm sản phẩm</a>
+    </div>
+    <div  th:each="product,index : ${listProduct}">
+        <div class="portfolio-modal modal fade" th:id="${'portfolioModal'}+${index.index+1}" tabindex="-1" role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-dismiss="modal">
+                        <div class="lr">
+                            <div class="rl"></div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="modal-body">
+                                    <!-- Project Details Go Here -->
+                                    <h2 class="text-uppercase" style="color:black;" th:text="${product.name}"></h2>
+                                    <p class="item-intro text-muted">Vị bò hầm sốt vang tô 80g</p>
+                                    <img class="img-fluid d-block mx-auto"
+                                         th:src="${'/'+product.img}" alt="">
+                                    <p style="color:black;" th:text="${'Thành phần: '}+${product.properties}"> </p>
+                                    <p style="color:black;" th:text="${product.used==null?'':'Cách dùng: '+product.used}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script th:src="@{/js/admin.js}"></script>
 
+    <!-- Bootstrap core JavaScript -->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Plugin JavaScript -->
+    <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Contact form JavaScript -->
+    <script th:src="@{/js/jqBootstrapValidation.js}"></script>
+    <script th:src="@{/js/contact_me.js}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script th:src="@{/js/agency.min.js}"></script>
 </body>
 </html>

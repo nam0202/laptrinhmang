@@ -19,6 +19,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -41,12 +50,22 @@ public class HomeController {
             model.addAttribute("product", product);
             Bill bill = new Bill();
             bill.setProducts(product);
+            System.out.println(bill);
             model.addAttribute("bill", bill);
-            System.out.println(product);
             return "MuaHang.html";
         }
     }
-
+    @PostMapping("/muahang/{indexProduct}")
+    public String muaHang(
+            @ModelAttribute("bill") Bill bill,
+            @PathVariable("indexProduct") Integer indexProduct,
+            @ModelAttribute("product") Product product
+    ) {
+        bill.setProducts(product);
+        System.out.println(bill);
+        boolean result = this.billData.addBill(bill);
+        return "redirect:/";
+    }
     @PostMapping("/admin")
     public String loginAdmin(User user) {
         if (userData.LoginUser(user)) {
@@ -68,41 +87,27 @@ public class HomeController {
         return "Menu.html";
     }
 
-    @GetMapping("/chat")
-    public String chat() {
-        return "chat";
-    }
-
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/publicChatRoom")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;
     }
 
-    @PostMapping("/muahang/{indexProduct}")
-    public String muaHang(
-            @ModelAttribute("bill") Bill bill,
-            @PathVariable("indexProduct") Integer indexProduct,
-            @Payload ChatMessage chatMessage
-    ) {
-        boolean result = this.billData.addBill(bill);
-        System.out.println(chatMessage.getContent());
-        return "redirect:/";
-    }
 
     @GetMapping("/admin/hoadon")
-    public String hoaDon(Model mode){
-        mode.addAttribute("listBill",billData.getListBill());
+    public String hoaDon(Model mode) {
+        mode.addAttribute("listBill", billData.getListBill());
         return "ListHoaDon";
     }
+
     @GetMapping("/admin/hoadon/{id}")
-    public String hoaDon(@PathVariable("id") int id,Model model){
+    public String hoaDon(@PathVariable("id") int id, Model model) {
         Bill bill = billData.getBillById(id);
         System.out.println(bill);
-        if(bill ==null){
+        if (bill == null) {
             return "redirect:/admin/hoadon";
-        }else {
-            model.addAttribute("bill",bill);
+        } else {
+            model.addAttribute("bill", bill);
             return "ChiTietBill";
         }
     }
@@ -121,5 +126,58 @@ public class HomeController {
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;
+    }
+
+    private final Path rootLocation = Paths.get("filestorage");
+
+    @GetMapping("/admin/add")
+    public String addPro(Model model) {
+        model.addAttribute("product", new Product());
+        return "addPro";
+    }
+
+    @GetMapping("/admin/save")
+    public String savePro(Model model, HttpServletRequest request, Product product) {
+        System.out.println(request.getParameter("img"));
+        model.addAttribute("product", new Product());
+        product.setName(request.getParameter("name"));
+        product.setPrice(Float.parseFloat(request.getParameter("price")));
+        product.setNumbers(Integer.parseInt(request.getParameter("numbers")));
+        product.setImg(request.getParameter("img"));
+        product.setProperties(request.getParameter("properties"));
+        product.setUsed(request.getParameter("used"));
+        productData.addProduct(product);
+        return "redirect:/admin/home";
+    }
+
+    @GetMapping("/admin/delete/{id}")
+    public String deletePro(@PathVariable int id) {
+        System.out.println(id);
+        productData.deleteProduct(id);
+        return "redirect:/admin/home";
+    }
+
+    @GetMapping("/admin/edit/{id}")
+    public String editPro(@PathVariable int id, Product product, HttpServletRequest request, Model model) {
+        System.out.println(id);
+        List<Product> list = productData.getAllProducts();
+        model.addAttribute("product", list.get(id));
+
+        return "editPro";
+    }
+
+    String urlfile;
+
+    @GetMapping("/admin/edit/save")
+    public String saveEditPro(Model model, HttpServletRequest request, Product product) {
+
+        product.setName(request.getParameter("name"));
+        product.setPrice(Float.parseFloat(request.getParameter("price")));
+        product.setNumbers(Integer.parseInt(request.getParameter("numbers")));
+        product.setImg(request.getParameter("img"));
+        product.setProperties(request.getParameter("properties"));
+        product.setUsed(request.getParameter("used"));
+        productData.editProduct(Integer.parseInt(request.getParameter("id")), product);
+        return "redirect:/admin/home";
     }
 }

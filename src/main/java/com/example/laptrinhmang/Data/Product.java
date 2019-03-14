@@ -1,13 +1,24 @@
 package com.example.laptrinhmang.Data;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Product {
     private float price;
     private String name;
     private String properties;
     private String used;
     private String img;
+    private MultipartFile file;
     private int numbers;
     private int id;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public int getId() {
         return id;

@@ -9,7 +9,6 @@ public class Bill {
     private Float totalPrice;
     private int number;
     public Bill() {
-        product = new Product();
     }
 
     public Product getProduct() {

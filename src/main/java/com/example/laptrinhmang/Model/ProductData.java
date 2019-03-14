@@ -19,14 +19,14 @@ public class ProductData {
                         "TH true MILK",
                         "Lốc 4 hộp sữa tươi tiệt trùng TH true MILK ít đường 180ml",
                         null,
-                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg"
+                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg"
                         ,20,1));
         listProduct.add(
                 new Product(50.000f,
                         "TH true MILK hương dâu",
                         "sua tươi tiệt trùng TH True Milk hương dâu thơm ngon, dễ uống, được làm hoàn toàn từ nguồn sua tươi sạch tại trang trại bò sua của TH. Trong sua chứa nhiều dưỡng chất thiết yếu tốt cho sức khoẻ như Vitamin A, D, B1, B2, Canxi, kẽm... Sản phẩm sử dụng công nghệ tiệt trùng UTH, đảm bảo loại bỏ các khuẩn có hại trong sua, giữ được gần như trọn vẹn dưỡng chất và hương vị đặc trưng của sua",
                         null,
-                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-it-duong-hop-180ml-4-hop-201811261701381693.jpg"
+                        "image/sua/loc-sua-tuoi-tiet-trung-th-true-milk-huong-dau-hop-180ml-4-hop-201811301103486927.jpg"
                         ,30,2));
         listProduct.add(
                 new Product(18.000f,
@@ -53,6 +53,16 @@ public class ProductData {
         }finally {
             return true;
         }
+    }
+
+    public boolean deleteProduct(int id){
+        listProduct.remove(id);
+        return true;
+    }
+
+    public boolean editProduct(int id, Product product){
+        listProduct.set(id, product);
+        return true;
     }
 
     public ArrayList<Product> getAllProducts(){
