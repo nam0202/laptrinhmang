@@ -13,6 +13,11 @@
     <link href="https://fonts.googleapis.com/css?family=Laila|Roboto" rel="stylesheet">
 </head>
 <body>
+<p th:if="${loginInfo != 'admin'}">
+    <script>
+        window.location.replace("../admin")
+    </script>
+</p>
 <!-- NavBar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="/admin/home">Trang Chủ</a>
