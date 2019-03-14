@@ -28,12 +28,13 @@ public class Bill {
         this.number = number;
     }
 
-    public Bill(String customerName, String phone, String address, Product product, Float totalPrice) {
+    public Bill(String customerName, String phone, String address, Product product, Float totalPrice,int number) {
         this.customerName = customerName;
         this.phone = phone;
         this.address = address;
         this.product = product;
         this.totalPrice = totalPrice;
+        this.number = number;
     }
 
     public String getCustomerName() {
@@ -82,8 +83,9 @@ public class Bill {
                 "customerName='" + customerName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
-                ", product=" + product +
+                ", product=" + product.toString() +
                 ", totalPrice=" + totalPrice +
+                ", number=" + number +
                 '}';
     }
 }

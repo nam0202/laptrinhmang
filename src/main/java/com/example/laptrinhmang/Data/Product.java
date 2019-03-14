@@ -1,7 +1,7 @@
 package com.example.laptrinhmang.Data;
 
 public class Product {
-    private Float price;
+    private float price;
     private String name;
     private String properties;
     private String used;
@@ -46,11 +46,11 @@ public class Product {
         this.id = id;
     }
 
-    public Float getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
