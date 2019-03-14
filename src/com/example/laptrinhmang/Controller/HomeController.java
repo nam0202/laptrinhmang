@@ -15,11 +15,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
+@SessionAttributes("loginInfo")
 public class HomeController {
     private BillData billData = new BillData();
     private ProductData productData = new ProductData();
@@ -68,11 +65,19 @@ public class HomeController {
         return "redirect:/";
     }
     @PostMapping("/admin")
-    public String loginAdmin(User user) {
-        if (userData.LoginUser(user)) {
-            return "redirect:/admin/home";
-        }
+    public String loginAdmin(User user, Model model) {
+
         return "Login.html";
+    }
+
+    @PostMapping("/auth")
+    public String auth(User user, Model model){
+        if (userData.LoginUser(user)) {
+            model.addAttribute("loginInfo", user.getUsername());
+            return "redirect:/admin/home";
+        } else {
+            return "redirect:/admin";
+        }
     }
 
     @GetMapping("/admin/home")

@@ -5,7 +5,7 @@ public class Bill {
     private String customerName;
     private String phone;
     private String address;
-    private Product product;
+    private com.example.laptrinhmang.Data.Product product;
     private Float totalPrice;
     private int number;
     public Bill() {
