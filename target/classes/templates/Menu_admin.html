@@ -51,11 +51,11 @@
                     <td th:text="${index.index}"></td>
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price+'00 VND'}"></td>
-                    <td th:text="${product.numbers}"></td>
+                    <td th:id="${'productID'+index.index}" th:text="${product.numbers}"></td>
                       <td><a class="portfolio-modal btn btn-success" data-toggle="modal"
                              th:href="${'#'}+${'portfolioModal'}+${index.index+1}">Xem</a>
                           <a th:href="@{/admin/edit/{id}(id=${index.index})}" class="btn btn-info">Sửa</a>
-                          <a th:href="@{/admin/delete/{id}(id=${index.index})}" class="btn btn-danger">Xóa</a></td>
+                          <a th:href="@{/admin/delete/{id}(id=${index.index})}" class="btn btn-danger" onclick="deleteProduct()">Xóa</a></td>
                   </tr>
                 </tbody>
               </table>
@@ -92,7 +92,9 @@
         </div>
     </div>
     <script th:src="@{/js/admin.js}"></script>
-
+    <script>
+        onConnected()
+    </script>
     <!-- Bootstrap core JavaScript -->
     <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <script th:src="@{/vendor/jquery/jquery.min.js}"></script>

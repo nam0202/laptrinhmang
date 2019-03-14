@@ -15,11 +15,10 @@ connect();
 function muahang(e) {
     var numbers = document.getElementById("numbers-submit");
     var index = document.getElementById("index");
-    console.log(index.text);
     var chatMessage = {
-        number: numbers.value,
+        sender: numbers.value,
         content: 'Mua Hang',
-        index: 1
+        index: index.innerText
     };
     stompClient.send("/app/chat.status", {}, JSON.stringify(chatMessage));
     // alert("Mua hàng thành công. Chúng tôi sẽ liên hệ sớm với bạn")
@@ -30,4 +29,17 @@ function onError(error) {
     console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
 
+onConnected();
+function onConnected() {
+    stompClient.subscribe('/topic/change', onMessageReceived);
 
+}
+
+function onMessageReceived(payload) {
+    var message = JSON.parse(payload.body);
+    if(message.content === 'CHANGE'){
+        var result = alert('Có sự thay đổi về mặt hàng');
+        location.reload(true);
+    }
+
+}

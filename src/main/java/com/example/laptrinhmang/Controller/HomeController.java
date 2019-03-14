@@ -58,9 +58,10 @@ public class HomeController {
     @PostMapping("/muahang/{indexProduct}")
     public String muaHang(
             @ModelAttribute("bill") Bill bill,
-            @PathVariable("indexProduct") Integer indexProduct,
-            @ModelAttribute("product") Product product
+            @PathVariable("indexProduct") int indexProduct
     ) {
+        Product product = productData.getProductByIndex(indexProduct);
+        product.setNumbers(bill.getNumber());
         bill.setProducts(product);
         System.out.println(bill);
         boolean result = this.billData.addBill(bill);
@@ -125,6 +126,11 @@ public class HomeController {
     public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
+    }
+    @MessageMapping("/chat.change")
+    @SendTo("/topic/change")
+    public ChatMessage deleteProduct(@Payload ChatMessage chatMessage) {
         return chatMessage;
     }
 

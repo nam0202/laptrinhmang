@@ -12,12 +12,16 @@ function connect() {
 
 // Connect to WebSocket Server.
 connect();
-onConnected();
 function onConnected() {
     stompClient.subscribe('/topic/listener', onMessageReceived);
 
 }
-
+function deleteProduct() {
+    var chatMessage = {
+        content: 'CHANGE'
+    };
+    stompClient.send("/app/chat.change", {}, JSON.stringify(chatMessage));
+}
 function onError(error) {
     console.log('Could not connect to WebSocket server. Please refresh this page to try again!');
 }
@@ -29,6 +33,10 @@ function onMessageReceived(payload) {
         console.log(result);
         if(result){
             location.replace(window.location.origin+'/admin/hoadon');
+        }else {
+            var data = document.getElementById("productID"+message.index);
+            console.log(data.innerText, message.sender);
+            data.innerText = parseInt(data.innerText) - parseInt(message.sender);
         }
     }
 }

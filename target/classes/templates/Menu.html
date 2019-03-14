@@ -28,6 +28,9 @@
     <!-- icon -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <!-- https://cdnjs.com/libraries/stomp.js/ -->
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body id="page-top">
 <section class="bg-light" id="portfolio">
@@ -50,7 +53,7 @@
                 </a>
                 <div class="portfolio-caption">
                     <h4 th:text="${product.name}"></h4>
-                    <p style="color:red;" th:text="${'Giá Tiền: '}+${product.price}+${'VND'}"></a></p>
+                    <p style="color:red;" th:text="${'Giá Tiền: '}+${product.price}+${'00 VND'}"></a></p>
                 </div>
 
             </div>
@@ -92,6 +95,7 @@
         </div>
     </div>
 </div>
+
 <!-- Bootstrap core JavaScript -->
 <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
 <script src="vendor/jquery/jquery.min.js"></script>
@@ -108,5 +112,7 @@
 
 <!-- Custom scripts for this template -->
 <script src="js/agency.min.js"></script>
+<script th:src="@{/js/socket.js}"></script>
+
 </body>
 </html>
