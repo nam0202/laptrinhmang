@@ -38,7 +38,7 @@ function onConnected() {
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     if(message.content === 'CHANGE'){
-        var result = alert('Có sự thay đổi về mặt hàng');
+        var result = window.alert('Có sự thay đổi về mặt hàng');
         location.reload(true);
     }
 

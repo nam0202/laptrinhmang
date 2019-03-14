@@ -15,11 +15,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
+
 public class HomeController {
     private BillData billData = new BillData();
     private ProductData productData = new ProductData();
@@ -61,8 +58,17 @@ public class HomeController {
             @PathVariable("indexProduct") int indexProduct
     ) {
         Product product = productData.getProductByIndex(indexProduct);
-        product.setNumbers(bill.getNumber());
-        bill.setProducts(product);
+        Product product1 = new Product();
+        product1.setName(product.getName());
+        product1.setNumbers(bill.getNumber());
+        product1.setPrice(product.getPrice());
+        product1.setId(product.getId());
+        if(product.getNumbers() - product1.getNumbers() > 0){
+            product.setNumbers(product.getNumbers() - product1.getNumbers());
+        }else {
+            product.setNumbers(0);
+        }
+        bill.setProducts(product1);
         System.out.println(bill);
         boolean result = this.billData.addBill(bill);
         return "redirect:/";
@@ -115,7 +121,8 @@ public class HomeController {
 
     @MessageMapping("/chat.status")
     @SendTo("/topic/listener")
-    public ChatMessage sendMStatus(@Payload ChatMessage chatMessage) {
+    public ChatMessage sendMStatus(@Payload ChatMessage chatMessage, @SessionAttribute("sessionId") String sessionId) {
+        System.out.println(sessionId);
         System.out.println(chatMessage.getContent());
         return chatMessage;
     }

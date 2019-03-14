@@ -29,7 +29,7 @@ function onError(error) {
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
     if(message.content === 'Mua Hang'){
-        var result = confirm('Có người mới đặt hàng, Vào xem danh sách hóa đơn?');
+        var result = window.confirm('Có người mới đặt hàng, Vào xem danh sách hóa đơn?');
         console.log(result);
         if(result){
             location.replace(window.location.origin+'/admin/hoadon');
