@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+<body>
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="/admin/home">Trang Chủ</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="navbar-brand" style="color: #6ddd80; text-decoration: none;" href="/admin/hoadon">Hóa Đơn <span
+                        class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!---->
+<form th:action="@{/admin/edit/save}" th:object="${product}">
+    <h4 class="text-center my-3 size-45px">Thêm sản phẩm</h4>
+    <div class="container main-content form" align="center">
+        <!-- table -->
+        <table class="row">
+            <div>
+                <tr>
+                    <label>Mã hàng</label>
+                </tr>
+                <tr class="form-group">
+                    <input type="text" class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{id}">
+                </tr>
+                <tr>
+                <tr>
+                    <label>Tên hàng</label>
+                </tr>
+                <tr class="form-group">
+                    <input type="text" class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{name}">
+                </tr>
+                <tr>
+                    <label>Đơn giá</label>
+                </tr>
+                <tr class="form-group">
+                    <input type="text" class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{price}">
+                </tr>
+                <tr>
+                    <label>Số lượng</label>
+                </tr>
+                <tr class="form-group">
+                    <input type="text" class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{numbers}">
+                </tr>
+                <tr>
+                    <label>Hình ảnh </label>
+                </tr>
+                <tr class="form-group">
+                    <input type="file" id="uploadfile" class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{file}">
+                </tr>
+                <tr>
+                    <label>Thành phần</label>
+                </tr>
+                <tr class="form-group">
+                    <input type="text" class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{properties}">
+                </tr>
+                <tr>
+                    <label>Cách nấu</label>
+                </tr>
+                <tr class="form-group">
+                    <input type="text"  class="form-control" style="width: 500px; margin: 1%; text-align: center" th:field="*{used}">
+                </tr>
+            </div>
+            <button class="btn btn-primary">Sửa</button>
+        </table>
+
+        <!--  -->
+    </div>
+</form>
+</body>
+</html>
