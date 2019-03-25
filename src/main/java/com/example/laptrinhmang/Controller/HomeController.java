@@ -8,11 +8,13 @@ import com.example.laptrinhmang.Data.User;
 import com.example.laptrinhmang.Model.BillData;
 import com.example.laptrinhmang.Model.ProductData;
 import com.example.laptrinhmang.Model.UserData;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 
@@ -31,7 +34,8 @@ public class HomeController {
     private BillData billData = new BillData();
     private ProductData productData = new ProductData();
     private UserData userData = new UserData();
-
+    @Autowired
+    private SimpMessageSendingOperations messagingTemplate;
 
     @GetMapping("/admin")
     public String loginAdmin() {
@@ -121,12 +125,17 @@ public class HomeController {
 
     @MessageMapping("/chat.status")
     @SendTo("/topic/listener")
-    public ChatMessage sendMStatus(@Payload ChatMessage chatMessage, @SessionAttribute("sessionId") String sessionId) {
-        System.out.println(sessionId);
+    public ChatMessage sendMStatus(@Payload ChatMessage chatMessage) {
         System.out.println(chatMessage.getContent());
         return chatMessage;
     }
-
+    @MessageMapping("/chat.message")
+    public void testSend(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor  headerAccessor) {
+        String sessionId = headerAccessor.getSessionAttributes().get("sessionId").toString();
+        System.out.println("sessionId"+sessionId);
+        headerAccessor.setSessionId(sessionId);
+        messagingTemplate.convertAndSend("/topic/reply", chatMessage);
+    }
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/publicChatRoom")

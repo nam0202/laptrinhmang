@@ -43,3 +43,21 @@ function onMessageReceived(payload) {
     }
 
 }
+
+function demo() {
+    console.log('subscrijdsaklf');
+    stompClient.subscribe('/topic/reply', demoSend);
+}
+function demoSend(payload) {
+    console.log('demoSend');
+    var message = JSON.parse(payload.body);
+    console.log(message);
+}
+function send() {
+    var chatMessage = {
+        content: 'hello'
+    };
+    console.log('jump');
+    stompClient.send("/app/chat.message", {}, JSON.stringify(chatMessage));
+
+}
